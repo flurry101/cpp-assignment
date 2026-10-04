@@ -62,10 +62,12 @@ extern mutex            g_log_mutex;
 
 void push_log(const string& s);
 Matrix snapshot_matrix(int src[MAX_N][MAX_N]);
-vector<int> multiply_row(int row, int n, const Matrix& A, const Matrix& B);
 
-// ─── Worker ──────────────────────────────────────────────────────────────────
-void worker(int row, int n, const Matrix& A, const Matrix& B, bool visible = true);
+// ─── Kernel + worker pool ────────────────────────────────────────────────────
+void pool_init();
+void pool_shutdown();
+void pool_run(int n, const Matrix& A, const Matrix& B, bool visible);
+void run_row(int row, int n, const Matrix& A, const Matrix& B, bool visible);
 
 // ─── Benchmark / computation ─────────────────────────────────────────────────
 int bench_reps(int n);

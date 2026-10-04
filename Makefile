@@ -1,11 +1,12 @@
 CXX      := g++
-CXXFLAGS := -std=c++17 -O2 -Wall -Iinclude -Ithird_party/imgui \
+CXXFLAGS := -std=c++17 -O3 -march=native -Wall -Iinclude -Ithird_party/imgui \
              $(shell pkg-config --cflags glfw3)
 LDFLAGS  := $(shell pkg-config --libs glfw3) -lGL -lpthread -ldl
 
 SRCS := src/main.cpp \
         src/core.cpp \
         src/worker.cpp \
+        src/kernel.cpp \
         src/compute.cpp \
         src/coordinator.cpp \
         src/ui.cpp \

@@ -44,13 +44,3 @@ Matrix snapshot_matrix(int src[MAX_N][MAX_N]) {
     return out;
 }
 
-vector<int> multiply_row(int row, int n,
-                        const Matrix& A,
-                        const Matrix& B)
-{
-    vector<int> local(n, 0);
-    for (int j = 0; j < n; ++j)
-        for (int k = 0; k < n; ++k)
-            local[j] += A[row][k] * B[k][j];
-    return local;
-}

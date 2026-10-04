@@ -48,13 +48,8 @@ void launch_computation() {
         double seq_time = duration<double>(te - ts).count() / REPS;  // per-call average
         // ── Parallel: one real run (results shown to user) ───────────────────
         // Warm-up pass, isolated from UI state and console output
-        {
-            vector<thread>  wt;
-            for (int i = 0; i < runN; ++i)
-                wt.emplace_back(worker, i, runN, cref(A), cref(B), false);
-            for (auto& t : wt) t.join();
-        }
-        // Timed parallel runs include thread creation/join overhead by design.
+        pool_run(runN, A, B, false);
+        // Timed parallel runs dispatch to the persistent pool (no spawn cost).
         int par_reps = max(1, min(200, REPS / max(1, runN)));
         double par_total = 0.0;
         for (int r = 0; r < par_reps; ++r) {
@@ -64,11 +59,7 @@ void launch_computation() {
                 for (auto& res : g_results) { res.done = false; res.result.clear(); }
             }
             auto tp0 = high_resolution_clock::now();
-            vector<thread> threads;
-            bool visible = (r == par_reps - 1);
-            for (int i = 0; i < runN; ++i)
-                threads.emplace_back(worker, i, runN, cref(A), cref(B), visible);
-            for (auto& t : threads) t.join();
+            pool_run(runN, A, B, r == par_reps - 1);
             auto tp1 = high_resolution_clock::now();
             par_total += duration<double>(tp1 - tp0).count();
 

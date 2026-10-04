@@ -21,9 +21,11 @@ void sequential_multiply(const Matrix& A, const Matrix& B, int n)
     volatile int dummy = 0;
     int C[MAX_N][MAX_N] = {};
     for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-            for (int k = 0; k < n; ++k)
-                C[i][j] += A[i][k] * B[k][j];
+        for (int k = 0; k < n; ++k) {
+            const int a = A[i][k];
+            for (int j = 0; j < n; ++j)
+                C[i][j] += a * B[k][j];
+        }
     dummy = C[0][0];
     (void)dummy;
 }

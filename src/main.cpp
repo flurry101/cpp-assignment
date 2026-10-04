@@ -38,6 +38,7 @@ int main() {
     g_shutdown_requested.store(true);
     if (g_coordinator.joinable())
         g_coordinator.join();
+    pool_shutdown();
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
