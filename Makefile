@@ -1,15 +1,24 @@
 CXX      := g++
-CXXFLAGS := -std=c++17 -O2 -Wall \
+CXXFLAGS := -std=c++17 -O2 -Wall -Iinclude -Ithird_party/imgui \
              $(shell pkg-config --cflags glfw3)
 LDFLAGS  := $(shell pkg-config --libs glfw3) -lGL -lpthread -ldl
 
-SRCS := main.cpp \
-        imgui.cpp \
-        imgui_draw.cpp \
-        imgui_tables.cpp \
-        imgui_widgets.cpp \
-        imgui_impl_glfw.cpp \
-        imgui_impl_opengl3.cpp
+SRCS := src/main.cpp \
+        src/core.cpp \
+        src/worker.cpp \
+        src/compute.cpp \
+        src/coordinator.cpp \
+        src/ui.cpp \
+        src/style.cpp \
+        src/loop.cpp \
+        src/panel_left.cpp \
+        src/panel_right.cpp \
+        third_party/imgui/imgui.cpp \
+        third_party/imgui/imgui_draw.cpp \
+        third_party/imgui/imgui_tables.cpp \
+        third_party/imgui/imgui_widgets.cpp \
+        third_party/imgui/imgui_impl_glfw.cpp \
+        third_party/imgui/imgui_impl_opengl3.cpp
 
 TARGET := parallel_matrix
 

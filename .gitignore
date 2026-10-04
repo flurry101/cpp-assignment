@@ -1,0 +1,13 @@
+# Build artifacts
+/parallel_matrix
+*.o
+/build/
+
+# Runtime-generated ImGui layout/config
+imgui.ini
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
